@@ -5,7 +5,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var AV = require('leanengine');
-var users = require('./routes/users');
 var user = require('./routes/user');
 var grade = require('./routes/grade');
 var todos = require('./routes/todos');
@@ -50,7 +49,6 @@ app.get('/test', function(req, res) {
 // 可以将一类的路由单独保存在一个文件中
 //app.use('/todos', require('./routes/todos'));
 app.use('/todos', todos);
-app.use('/users', users);
 app.use('/user', user);
 app.use('/grade', grade);
 app.use(function(req, res, next) {
