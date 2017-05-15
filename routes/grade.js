@@ -1,6 +1,7 @@
 'use strict';
 var router = require('express').Router();
 var AV = require('leanengine');
+var http = require('http');
 
 function sendError(res,code,message){
 	var result = {
@@ -58,7 +59,7 @@ router.post('/add', function(req, res, next) {
 		    	message : '用户已存在'
 			}
 			res.send(result);
-		}else{
+		}else{ 
 			//不存在
 			//创建应用
 			var addObj = new Grade();
