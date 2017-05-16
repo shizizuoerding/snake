@@ -7,20 +7,20 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script>
     
-    function test() {
-    	$.ajax({
-           type: "POST",
-           url: 'user/add',
-           data: {userName:'123ffdsd12',passWord:'ajdhdvfrfas',nickName:'好'},
-           dataType: "json",
-           success : function(result) {
-               console.log(result);
-           },
-           error : function(){
-           	console.log("出错");
-           }
-       });
-    }
+    // function test() {
+    // 	$.ajax({
+    //        type: "POST",
+    //        url: 'user/add',
+    //        data: {userName:'123ffdsd12',passWord:'ajdhdvfrfas',nickName:'好'},
+    //        dataType: "json",
+    //        success : function(result) {
+    //            console.log(result);
+    //        },
+    //        error : function(){
+    //        	console.log("出错");
+    //        }
+    //    });
+    // }
     test();
     // function test() {
     // 	$.ajax({
@@ -36,20 +36,20 @@
     //        }
     //    });
     // }
-    // function test() {
-    //   $.ajax({
-    //        type: "POST",
-    //        url: 'grade/add',
-    //        data: {userId:'58f85b5a44d9040069c964ac',grade:'90'},
-    //        dataType: "json",
-    //        success : function(result) {
-    //            console.log(result);
-    //        },
-    //        error : function(){
-    //         console.log("出错");
-    //        }
-    //    });
-    // }
+    function test() {
+      $.ajax({
+           type: "POST",
+           url: 'grade/add',
+           data: {userId:'58f85b5a44d9040069c964ac',grade:'95'},
+           dataType: "json",
+           success : function(result) {
+               console.log(result);
+           },
+           error : function(){
+            console.log("出错");
+           }
+       });
+    }
     // function test() {
     //   $.ajax({
     //        type: "GET",

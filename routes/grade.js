@@ -42,7 +42,8 @@ var Grade = AV.Object.extend('Grade');
 router.post('/add', function(req, res, next) {
 	var data = {
 		userId : '用户id',
-		grade : '分数'
+		grade : '分数',
+		nickName: '昵称'
     }
 	var data = validate(res,req,data);
 	if(!data){
