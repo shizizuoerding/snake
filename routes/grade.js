@@ -53,12 +53,33 @@ router.post('/add', function(req, res, next) {
 	query.find().then(function(results) {
 		//判断是否存在
 		if(results.length){
+			console.log(results[0].attributes.grade);
 			//存在
-			var result = {
-		   		code : 601,
-		    	message : '用户已存在'
+			if(data.grade > results[0].attributes.grade){
+				var editObj = AV.Object.createWithoutData('Grade', results[0].id);
+				for(var key in data){
+					editObj.set(key,data[key]);
+				}
+				editObj.save().then(function (editResult) {
+					var result = {
+					    code : 200,
+					    data : editResult,
+					    message : 'success'
+					}
+					res.send(result);
+				}, function (error) {
+					var result = {
+					    code : 500,
+					    message : '保存出错'
+					}
+					res.send(result);
+				}).catch(next);
 			}
-			res.send(result);
+			// var result = {
+		 //   		code : 601,
+		 //    	message : '用户已存在'
+			// }
+			// res.send(result);
 		}else{ 
 			//不存在
 			//创建应用
