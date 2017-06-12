@@ -14,6 +14,7 @@ function sendError(res,code,message){
 
 function validate(res,req,data){
 	for(var i in data){
+		console.log(i);
 		if(req.method == 'GET'){
 			var value = req.query[i];
 		}else{
@@ -42,7 +43,7 @@ var Grade = AV.Object.extend('Grade');
 router.post('/add', function(req, res, next) {
 	var data = {
 		userId : '用户id',
-		grade : '分数',
+		grades : '分数',
 		nickName: '昵称'
     }
 	var data = validate(res,req,data);
@@ -55,12 +56,15 @@ router.post('/add', function(req, res, next) {
 		//判断是否存在
 		if(results.length){
 			console.log(results[0].attributes.grade);
+			console.log(data.grades);
 			//存在
-			if(data.grade > results[0].attributes.grade){
+			if(data.grades > results[0].attributes.grades){
+				console.log(results[0].id);
 				var editObj = AV.Object.createWithoutData('Grade', results[0].id);
 				for(var key in data){
 					editObj.set(key,data[key]);
 				}
+				editObj.set("grade",parseInt(data.grades));
 				editObj.save().then(function (editResult) {
 					var result = {
 					    code : 200,
@@ -88,6 +92,8 @@ router.post('/add', function(req, res, next) {
 			for(var key in data){
 				addObj.set(key,data[key]);
 			}
+			addObj.set("grade",parseInt(data.grades));
+			// console.log(data);
 			addObj.save().then(function (addResult) {
 		    	var result = {
 		    		code : 200,
@@ -98,7 +104,7 @@ router.post('/add', function(req, res, next) {
 			}, function (error) {
 		    	var result = {
 		    		code : 500,
-		    		message : '保存出错'
+		    		message : '保存出错了'
 		    	}
 		    	res.send(result);
 			});
@@ -169,7 +175,8 @@ router.post('/edit', function(req, res, next) {
 router.get('/list', function(req, res, next) {
 	var data = {
 		limit : '',
-       skip  : ''
+       skip  : '',
+       stauts : '排序'
     }
 	var data = validate(res,req,data);
 	if(!data){
@@ -180,7 +187,13 @@ router.get('/list', function(req, res, next) {
 	var query = new AV.Query('Grade');
 	query.skip(skip);
 	query.limit(limit);
-	query.descending("grade");
+	if(data.stauts == 0){
+		query.descending('grade');
+	}
+	else if(data.stauts == 1){
+		query.ascending('grade');
+	}
+	// query.sort(sortBy('grade',false));
 	query.find().then(function (results) {		
 		var result = {
 		   	code : 200,
