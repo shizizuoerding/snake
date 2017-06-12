@@ -176,7 +176,7 @@ router.get('/list', function(req, res, next) {
 	var data = {
 		limit : '',
        	skip  : '',
-       	stauts : '排序'
+       	status : '排序'
     }
 	var data = validate(res,req,data);
 	if(!data){
@@ -187,10 +187,10 @@ router.get('/list', function(req, res, next) {
 	var query = new AV.Query('Grade');
 	query.skip(skip);
 	query.limit(limit);
-	if(data.stauts == '0'){
+	if(data.status == '0'){
 		query.descending('grade');
 	}
-	else if(data.stauts == '1'){
+	else if(data.status == '1'){
 		query.ascending('grade');
 	}
 	// query.sort(sortBy('grade',false));
